@@ -7,14 +7,14 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float playerMovementSpeed = 5f;
     [SerializeField] private float turnSpeed = 50f;
     private Rigidbody playerRb;
-    //private Animator animator;
+    private Animator animator;
     [SerializeField] private Vector3 movement;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -36,10 +36,13 @@ public class MovementController : MonoBehaviour
         if (movementVector == Vector3.zero)
         {
             playerRb.velocity = Vector3.zero;
+            animator.SetBool("Moving", false);
         } else
         {
+            animator.SetBool("Moving", true);
             transform.Translate(movementVector * Time.deltaTime * playerMovementSpeed, Space.World);
             TurnPlayer(movementVector);
+            
         }
     }
 
